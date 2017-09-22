@@ -7,9 +7,7 @@ import VacationPackages from './components/VacationPackages';
 class App extends Component {
   render() {
     return (
-      <div>
-        <VacationPackages />
-      </div>
+      <VacationPackages />
     );
   }
 }

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class VacationPackages extends Component {
-  constructor(props) {
-    super(props);
+import VacationPackageForm from './VacationPackageForm';
+import VacationPackagesList from './VacationPackagesList';
+
+export default class VacationPackages extends Component {
+  constructor() {
+    super();
 
     this.state = {
       vacationPackages: []
@@ -18,28 +21,26 @@ class VacationPackages extends Component {
     })
   }
 
-  render () {
+  updateList = (vacations) => {
+    this.setState({
+      vacationPackages: vacations
+    })
+  }
+
+  removeVacation = (index) => {
+    axios.delete(`http://localhost:8777/packages/${index}`).then(response => {
+      this.setState({
+        vacationPackages: response.data
+      })
+    })
+  }
+
+  render() {
     return (
       <div>
-        <h1>Vacations</h1>
-
-        {this.state.vacationPackages.map((vacation, index) => {
-          return (
-            <div>
-              <img src={vacation.imageUrl} />
-              <h3> LOCATION: {vacation.location} </h3>
-              <p> TYPE: {vacation.type} </p>
-              <p> DAYS: {vacation.days} </p>
-              <p> {vacation.description} </p>
-              <br/>
-              <br/>
-              <br/>
-            </div>
-          )
-        })}
+        <VacationPackageForm updateParentList={this.updateList}/>
+        <VacationPackagesList vacations={this.state.vacationPackages} removeVacation={this.removeVacation}/>
       </div>
     )
   }
 }
-
-export default VacationPackages;
