@@ -14,31 +14,27 @@ export default class VacationPackages extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8777/packages').then(response => {
+    this.getVacations();
+  }
+
+  getVacations = () => {
+    axios.get('http://localhost:8777/vacations').then(response => {
       this.setState({
         vacationPackages: response.data
       })
     })
   }
 
-  updateList = (vacations) => {
-    this.setState({
-      vacationPackages: vacations
-    })
-  }
-
-  removeVacation = (index) => {
-    axios.delete(`http://localhost:8777/packages/${index}`).then(response => {
-      this.setState({
-        vacationPackages: response.data
-      })
+  removeVacation = (id) => {
+    axios.delete(`http://localhost:8777/vacations/${id}`).then(response => {
+      this.getVacations();
     })
   }
 
   render() {
     return (
       <div>
-        <VacationPackageForm updateParentList={this.updateList}/>
+        <VacationPackageForm updateParentList={this.getVacations}/>
         <VacationPackagesList vacations={this.state.vacationPackages} removeVacation={this.removeVacation}/>
       </div>
     )

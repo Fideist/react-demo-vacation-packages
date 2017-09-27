@@ -30,7 +30,7 @@ export default class VacationPackageForm extends Component {
   }
 
   handleSubmit = () => {
-    axios.post('http://localhost:8777/packages', this.state.vacationPackage).then(response => {
+    axios.post('http://localhost:8777/vacations', this.state.vacationPackage).then(response => {
       console.log('response', response);
       this.props.updateParentList(response.data);
     })

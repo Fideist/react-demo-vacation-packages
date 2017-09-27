@@ -1,28 +1,28 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var massive = require('massive');
+var dotenv = require('dotenv');
+dotenv.config();
 
-var data = require('./data');
 
 var app = express();
 var port = 8777;
 
+var VacationsController = require('./controllers/VacationPackagesController')(app);
+massive(process.env.DB_CONNECTION_STRING).then(db => {
+  console.log('db is connected');
+  app.set('db', db);
+}).catch(err => {
+  console.error(err);
+})
+
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/packages', (req, res, next) => {
-  res.send(data.vacationPackages)
-});
-
-app.post('/packages', (req, res) => {
-  data.vacationPackages.push(req.body);
-  res.send(data.vacationPackages);
-});
-
-app.delete('/packages/:index', (req, res) => {
-  data.vacationPackages.splice(req.params.index, 1);
-  res.send(data.vacationPackages);
-});
+app.get('/vacations', VacationsController.read);
+app.post('/vacations', VacationsController.create);
+app.delete('/vacations/:id', VacationsController.delete);
 
 app.listen(port, () => {
   console.log('listening on port', port)

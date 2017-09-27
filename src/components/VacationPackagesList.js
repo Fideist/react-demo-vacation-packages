@@ -7,13 +7,13 @@ function VacationPackagesList(props) {
 
       {props.vacations.map((vacation, index) => {
         return (
-          <div>
-            <img src={vacation.imageUrl} />
+          <div key={index}>
+            <img src={vacation.image_url} />
             <h3> LOCATION: {vacation.location} </h3>
             <p> TYPE: {vacation.type} </p>
             <p> DAYS: {vacation.days} </p>
             <p> {vacation.description} </p>
-            <button onClick={() => {props.removeVacation(index)}}>delete</button>
+            <button onClick={() => {props.removeVacation(vacation.id)}}>delete</button>
             <br/>
             <br/>
             <br/>
