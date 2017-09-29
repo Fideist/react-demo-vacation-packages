@@ -1,25 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
+
+import VacationPackage from './VacationPackage';
+
+let VacationsWrapper = styled.div`
+  display: flex;
+`
+
+let PageTitle = styled.div`
+  text-align: center;
+`
 
 function VacationPackagesList(props) {
   return (
     <div>
-      <h1>Vacations</h1>
-
-      {props.vacations.map((vacation, index) => {
-        return (
-          <div key={index}>
-            <img src={vacation.image_url} />
-            <h3> LOCATION: {vacation.location} </h3>
-            <p> TYPE: {vacation.type} </p>
-            <p> DAYS: {vacation.days} </p>
-            <p> {vacation.description} </p>
-            <button onClick={() => {props.removeVacation(vacation.id)}}>delete</button>
-            <br/>
-            <br/>
-            <br/>
-          </div>
-        )
-      })}
+      <PageTitle>
+        <h1>Vacations</h1>
+      </PageTitle>
+      <VacationsWrapper>
+        {props.vacations.map((vacation, index) => {
+          return (
+            <VacationPackage vacation={vacation} key={index} removeClickHandler={props.removeVacation}/>
+          )
+        })}
+      </VacationsWrapper>
     </div>
   )
 }
