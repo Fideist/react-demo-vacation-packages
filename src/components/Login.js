@@ -10,15 +10,6 @@ border: 1px solid;
 margin: 5px 0;
 `;
 
-let Textarea = styled.textarea`
-padding: 5px;
-font-size: 14px;
-height: 100px;
-width: 400px;
-border: 1px solid black;
-margin: 5px 0;
-`;
-
 let FormWrapper = styled.div`
 display: flex;
 flex-direction: column;
@@ -35,10 +26,6 @@ font-size 14px;
 `;
 
 export default class Login extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <FormWrapper>
