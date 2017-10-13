@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import VacationPackage from './VacationPackage';
 
 let VacationsWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 
 let PageTitle = styled.div`
@@ -18,9 +20,9 @@ function VacationPackagesList(props) {
         <h1>Vacations</h1>
       </PageTitle>
       <VacationsWrapper>
-        {props.vacations.map((vacation, index) => {
+        {props.data.map((vacation, index) => {
           return (
-            <VacationPackage vacation={vacation} key={index} removeClickHandler={props.removeVacation}/>
+            <VacationPackage vacation={vacation} key={index}/>
           )
         })}
       </VacationsWrapper>
@@ -28,4 +30,4 @@ function VacationPackagesList(props) {
   )
 }
 
-export default VacationPackagesList;
+export default connect(state => state.vacations)(VacationPackagesList);

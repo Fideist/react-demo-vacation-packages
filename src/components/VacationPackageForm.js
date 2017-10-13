@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
+
+import { createVacation } from '../reducers/vacations';
 
 let Input = styled.input`
 padding: 5px;
@@ -35,7 +38,7 @@ font-size 14px;
 
 `;
 
-export default class VacationPackageForm extends Component {
+class VacationPackageForm extends Component {
   constructor() {
     super();
 
@@ -64,9 +67,7 @@ export default class VacationPackageForm extends Component {
   }
 
   handleSubmit = () => {
-    axios.post('http://localhost:8777/vacations', this.state.vacationPackage).then(response => {
-      this.props.updateParentList(response.data);
-    })
+    this.props.createVacation(this.state.vacationPackage)
   }
 
   render() {
@@ -107,3 +108,5 @@ export default class VacationPackageForm extends Component {
     )
   }
 }
+
+export default connect(null, { createVacation })(VacationPackageForm)

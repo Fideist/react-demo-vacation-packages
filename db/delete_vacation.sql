@@ -1,2 +1,5 @@
 DELETE FROM vacations
-WHERE id = ${id}
+WHERE id = ${id};
+
+SELECT *
+FROM vacations;

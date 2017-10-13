@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
+import { deleteVacation } from '../reducers/vacations';
 
 let VacationPackage = styled.div`
   width: 500px;
@@ -8,7 +11,7 @@ let VacationPackage = styled.div`
   padding: 10px;
 `;
 
-export default function(props) {
+function Vacation(props) {
   let vacation = props.vacation;
 
   let Img = styled.div`
@@ -27,10 +30,12 @@ export default function(props) {
       <p> TYPE: {vacation.type} </p>
       <p> DAYS: {vacation.days} </p>
       <p> {vacation.description} </p>
-      <button onClick={() => {props.removeClickHandler(vacation.id)}}>delete</button>
+      <button onClick={() => {props.deleteVacation(vacation.id)}}>delete</button>
       <br/>
       <br/>
       <br/>
     </VacationPackage>
   )
 }
+
+export default connect(null, { deleteVacation })(Vacation);

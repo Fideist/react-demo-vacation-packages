@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  
+
   return {
     read: (req, res, next) => {
       let db = app.get('db');
@@ -14,7 +14,7 @@ module.exports = (app) => {
 
       db.create_vacation({ location, days, type, description, imageUrl}) //or you can just pass in req.body
         .then(response => {
-          res.status(200).send();
+          res.status(200).send(response);
         }).catch(err => {
           console.error(err);
         });
@@ -26,8 +26,8 @@ module.exports = (app) => {
 
     delete: (req, res) => {
       let db = app.get('db');
-      db.delete_vacation({id: req.params.id}).then(() => {
-        res.send();
+      db.delete_vacation({id: req.params.id}).then((response) => {
+        res.send(response);
       }).catch(err => {
         console.error(err);
       });
